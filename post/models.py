@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+
 # Create your models here.
 
 
@@ -19,4 +20,8 @@ class Post(models.Model):
 
     def __str__(self):
         """Unicode representation of Post."""
-        pass
+        return self.title
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('post_detail', kwargs={'pk': self.pk})
