@@ -7,10 +7,22 @@ from .models import Post
 
 class PostList(ListView):
     model = Post
-    template_name = 'post/post_list.html'
+    # template_name = 'post/post_list.html'
+    # context_object_name = 'all_posts'
+    ordering = ['-created_at']
+    # queryset = Post.objects.filter(active=True)
+
+    def get_queryset(self):
+        return Post.objects.filter(active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['myname'] = 'sophie'
+        context['lname'] = 'ro'
+        return context
 
 
-class PostDetail(DeleteView):
+class PostDetail(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
 
